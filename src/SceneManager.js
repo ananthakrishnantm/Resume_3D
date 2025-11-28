@@ -44,8 +44,8 @@ export function SceneManager(physicsWorld) {
   models.rocketLaunchButton();
   models.uniModel1();
   models.uniModel2();
-  // models.cookiejar(); //these two togetehr creates teh collision fix that
-  // models.cookieModelAnim();
+  models.cookiejar(); //these two togetehr creates teh collision fix that
+  models.cookieModelAnim();
   models.hanger1();
   models.Mountain();
   models.Mountain1();
@@ -70,11 +70,15 @@ export function SceneManager(physicsWorld) {
   models.teleporter1();
   models.satelite1();
   models.monorail1();
-  // models.train1();
-  // models.train2();//these 4 together creates the collision fix that
-  // models.train3();
-  // models.train4();
-  // models.shipLanded();
+  models.train1();
+  models.train2(); //these 4 together creates the collision fix that
+  models.train3();
+  models.train4();
+  models.train5();
+  models.train6();
+  models.train7();
+  models.shipLanded();
+  models.rocket_launch();
   // Load background model
   // loadModel(scene);
 

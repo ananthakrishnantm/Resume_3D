@@ -4,6 +4,7 @@ import { SceneManager } from "./SceneManager.js";
 import { PhysicsWorld } from "./PhysicsWorld.js";
 import { createCar } from "./Car.js"; // Updated import for functional approach
 import { Controls } from "./Controls.js";
+import { makeGroundText } from "./GroundText.js";
 
 // Debugging GUI (delete later if not needed)
 import { GUI } from "lil-gui";
@@ -73,6 +74,28 @@ async function init() {
     // sceneManager.groundBody // pass groundBody for collision detection
   );
 
+  //this here calls the text function
+
+  //university Text 1
+  const School1Text = makeGroundText(
+    "Kaunas Technological University \nMasters in\nArtificial Intelligence \nin Computer Science \n2024-2026",
+    100,
+    100,
+    { x: -74, y: 5, z: -10 }, //this is the location
+    { x: -90, y: 0, z: 90 } // flat + rotated around Y
+  );
+  sceneManager.scene.add(School1Text);
+
+  //university Text 2
+  const School2Text = makeGroundText(
+    "Kerala Technological University \nBachelors in \nComputer Science \n2015-2019",
+    100,
+    100,
+    { x: -40, y: 5, z: -10 }, //Location
+    { x: -90, y: 0, z: 90 } // Rotation
+  );
+  sceneManager.scene.add(School2Text);
+
   // Animation loop
   function animate() {
     requestAnimationFrame(animate);
@@ -81,7 +104,11 @@ async function init() {
       mixer.update(delta);
     });
     animatedPhysicsObjects.forEach(({ model, body }) => {
-      body.position.copy(model.position);
+      const box = new THREE.Box3().setFromObject(model);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      body.position.copy(center);
       body.quaternion.copy(model.quaternion);
     });
 

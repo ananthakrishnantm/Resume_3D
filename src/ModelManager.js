@@ -36,29 +36,47 @@ export const modelManager = (scene, physicsWorld) => {
     //loads model
     loader.load(path, (gltf) => {
       const model = gltf.scene;
+      model.traverse((obj) => {
+        if (obj.rotation) obj.rotation.order = "XYZ";
+      });
       scene.add(model);
-      console.log("Model loaded (no physics):", path, model);
 
       //animations
       const animMixer = new THREE.AnimationMixer(model);
       gltf.animations.forEach((clip) => animMixer.clipAction(clip).play());
       mixer.push(animMixer); //pushes to global mixer array
 
+      // ✅ UPDATE: Let the animation run for one frame to get proper initial position
+      animMixer.update(0);
+
       //physics
+      model.updateMatrixWorld(true);
+
+      console.log("Model root position:", model.position);
       const box = new THREE.Box3().setFromObject(model);
       const size = new THREE.Vector3();
       const center = new THREE.Vector3();
       box.getSize(size);
       box.getCenter(center);
+
+      console.log("Bounding box center:", center);
+      console.log("Bounding box size:", size);
+
       const halfExtents = new CANNON.Vec3(size.x / 2, size.y / 2, size.z / 2);
       const shape = new CANNON.Box(halfExtents);
       const bodyphysics = new CANNON.Body({
         mass: 0,
-        position: new CANNON.Vec3(center.x, center.y, center.z),
+        type: CANNON.Body.KINEMATIC,
+        position: new CANNON.Vec3(
+          model.position.x,
+          model.position.y,
+          model.position.z
+        ), // ✅ Use model.position instead of center
         material: new CANNON.Material(materialName),
       });
       bodyphysics.addShape(shape);
       physicsWorld.world.addBody(bodyphysics);
+
       animatedPhysicsObjects.push({ model, body: bodyphysics });
     });
   };
@@ -66,15 +84,27 @@ export const modelManager = (scene, physicsWorld) => {
   const loadModelWithoutPhysics = (path) => {
     loader.load(path, (gltf) => {
       const model = gltf.scene;
+      model.traverse((obj) => {
+        if (obj.rotation) obj.rotation.order = "XYZ";
+      });
+      // console.log(
+      //   "🔍 MODEL ROTATION ORDER:",
+      //   model.rotation.order,
+      //   "from",
+      //   path
+      // );
       scene.add(model);
-      console.log("Model loaded (no physics):", path, model);
+      // console.log("Model loaded (no physics):", path, model);
     });
   };
   const loadmodelwithPhysics = (path, materialName = "building1Material") => {
     loader.load(path, (gltf) => {
       const model = gltf.scene;
+      model.traverse((obj) => {
+        if (obj.rotation) obj.rotation.order = "XYZ";
+      });
       scene.add(model);
-      console.log("Model loaded", path, model);
+      // console.log("Model loaded", path, model);
 
       const box = new THREE.Box3().setFromObject(model);
       const size = new THREE.Vector3();
@@ -103,8 +133,16 @@ export const modelManager = (scene, physicsWorld) => {
   ) => {
     loader.load(path, (gltf) => {
       const model = gltf.scene;
+      model.traverse((obj) => {
+        if (obj.rotation) obj.rotation.order = "XYZ";
+      });
       scene.add(model);
-      console.log("Model loaded", path, model);
+      // console.log(
+      //   "🔍 MODEL ROTATION ORDER:",
+      //   model.rotation.order,
+      //   "from",
+      //   path
+      // );
 
       // --- Physics setup ---
       const box = new THREE.Box3().setFromObject(model);
@@ -154,6 +192,7 @@ export const modelManager = (scene, physicsWorld) => {
       "building3Material"
     );
   };
+
   //new ones
   const loadbuilding4 = () => {
     loadmodelwithPhysics(
@@ -318,6 +357,7 @@ export const modelManager = (scene, physicsWorld) => {
   const monorail1 = () => {
     loadModelWithoutPhysics("assets/scene/roads/monorail.glb");
   };
+
   //floating ballons
   const floatingExperienceBallon = () => {
     loadModelWithoutPhysics("assets/scene/assets/floatingBExperience.glb");
@@ -398,6 +438,26 @@ export const modelManager = (scene, physicsWorld) => {
     );
   };
 
+  const train5 = () => {
+    loadmodelwithAnimationPhysics(
+      "assets/scene/trainAnim/monorail5.glb",
+      "building1Material"
+    );
+  };
+  const train6 = () => {
+    loadmodelwithAnimationPhysics(
+      "assets/scene/trainAnim/monorail6.glb",
+      "building1Material"
+    );
+  };
+
+  const train7 = () => {
+    loadmodelwithAnimationPhysics(
+      "assets/scene/trainAnim/monorail7.glb",
+      "building1Material"
+    );
+  };
+
   const shipLanded = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/AnimatedAssets/spaceshipLanded.glb",
@@ -408,6 +468,13 @@ export const modelManager = (scene, physicsWorld) => {
   const cookieModelAnim = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/AnimatedAssets/cookie.glb",
+      "building1Material"
+    );
+  };
+
+  const rocket_launch = () => {
+    loadmodelwithAnimationPhysics(
+      "assets/scene/AnimatedAssets/rocket_launch.glb",
       "building1Material"
     );
   };
@@ -460,7 +527,11 @@ export const modelManager = (scene, physicsWorld) => {
     train2,
     train3,
     train4,
+    train5,
+    train6,
+    train7,
     shipLanded,
+    rocket_launch,
     loadmodelwithPhysicsAndText,
     mixers: mixer,
     animatedPhysicsObjects,

@@ -45,6 +45,15 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
         if (keys.ArrowLeft) car.rotation.y += turnSpeed * (speed / maxSpeed);
         if (keys.ArrowRight) car.rotation.y -= turnSpeed * (speed / maxSpeed);
       }
+      // if (keys.ArrowLeft || keys.ArrowRight) {
+      //   console.log(
+      //     "car.rotation.y:",
+      //     car.rotation.y,
+      //     "radians =",
+      //     ((car.rotation.y * 180) / Math.PI).toFixed(2),
+      //     "degrees"
+      //   );
+      // }
 
       direction.set(Math.sin(car.rotation.y), 0, Math.cos(car.rotation.y));
       direction.normalize();
@@ -52,10 +61,15 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
       carBody.velocity.x = direction.x * speed * 100;
       carBody.velocity.z = direction.z * speed * 100;
 
+      carBody.quaternion.setFromAxisAngle(
+        new CANNON.Vec3(0, 1, 0),
+        car.rotation.y
+      );
       car.position.copy(carBody.position);
-      car.quaternion.setFromEuler(0, car.rotation.y, 0);
+      // car.quaternion.copy(carBody.quaternion);
+
       carMesh.position.copy(carBody.position);
-      carMesh.quaternion.copy(car.quaternion);
+      carMesh.quaternion.copy(carBody.quaternion);
 
       if (!cameraSettings.orbitMode && cameraManager) {
         const localOffset = new THREE.Vector3(0, 26, -8.5);
