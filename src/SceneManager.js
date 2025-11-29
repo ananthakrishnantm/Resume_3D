@@ -41,7 +41,7 @@ export function SceneManager(physicsWorld) {
   models.loadbuilding9();
   models.loadbuilding10();
   models.loadbuilding11();
-  models.rocketLaunchButton();
+  // models.rocketLaunchButton();
   models.uniModel1();
   models.uniModel2();
   models.cookiejar(); //these two togetehr creates teh collision fix that
@@ -78,7 +78,7 @@ export function SceneManager(physicsWorld) {
   models.train6();
   models.train7();
   models.shipLanded();
-  models.rocket_launch();
+  // models.rocket_launch();
   // Load background model
   // loadModel(scene);
 

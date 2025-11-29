@@ -5,6 +5,18 @@ import { PhysicsWorld } from "./PhysicsWorld.js";
 import { createCar } from "./Car.js"; // Updated import for functional approach
 import { Controls } from "./Controls.js";
 import { makeGroundText } from "./GroundText.js";
+import {
+  loadRocket,
+  updateRocketAnimation,
+  playRocketLaunch,
+} from "./interactingObjects/Rocket.js";
+
+import {
+  setPlayerPositionReference,
+  setupInteractionInput,
+} from "./interactionSystem.js";
+
+import { createButton } from "./interactingObjects/Button.js";
 
 // Debugging GUI (delete later if not needed)
 import { GUI } from "lil-gui";
@@ -65,7 +77,7 @@ const clock = new THREE.Clock();
 // Create car instance using the functional approach
 
 async function init() {
-  const car = await createCar(
+  const { carBody, update } = await createCar(
     sceneManager.scene,
     sceneManager.cameraManager,
     physicsWorld,
@@ -96,6 +108,22 @@ async function init() {
   );
   sceneManager.scene.add(School2Text);
 
+  // Set how to get player position
+  setPlayerPositionReference(() => {
+    return new THREE.Vector3(
+      carBody.position.x,
+      carBody.position.y,
+      carBody.position.z
+    );
+  });
+
+  // Setup input listeners
+  setupInteractionInput();
+
+  // Load objects
+  await loadRocket(sceneManager.scene);
+  await createButton(sceneManager.scene);
+
   // Animation loop
   function animate() {
     requestAnimationFrame(animate);
@@ -111,9 +139,10 @@ async function init() {
       body.position.copy(center);
       body.quaternion.copy(model.quaternion);
     });
+    updateRocketAnimation(delta);
 
     physicsWorld.update();
-    car.update(controls.keys); // Call update from functional car instance
+    update(controls.keys); // Call update from functional car instance
     sceneManager.render();
   }
 

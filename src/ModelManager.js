@@ -52,15 +52,15 @@ export const modelManager = (scene, physicsWorld) => {
       //physics
       model.updateMatrixWorld(true);
 
-      console.log("Model root position:", model.position);
+      // console.log("Model root position:", model.position);
       const box = new THREE.Box3().setFromObject(model);
       const size = new THREE.Vector3();
       const center = new THREE.Vector3();
       box.getSize(size);
       box.getCenter(center);
 
-      console.log("Bounding box center:", center);
-      console.log("Bounding box size:", size);
+      // console.log("Bounding box center:", center);
+      // console.log("Bounding box size:", size);
 
       const halfExtents = new CANNON.Vec3(size.x / 2, size.y / 2, size.z / 2);
       const shape = new CANNON.Box(halfExtents);
@@ -406,9 +406,9 @@ export const modelManager = (scene, physicsWorld) => {
     loadmodelwithPhysics("assets/scene/assets/jar.glb", "building1Material");
   };
 
-  const rocketLaunchButton = () => {
-    loadmodelwithPhysics("assets/scene/assets/button.glb", "building1Material");
-  };
+  // const rocketLaunchButton = () => {
+  //   loadmodelwithPhysics("assets/scene/assets/button.glb", "building1Material");
+  // };
 
   //assets with animation needs fix in physics
 
@@ -509,7 +509,7 @@ export const modelManager = (scene, physicsWorld) => {
     Mountain2,
     Mountain3,
     Mountain4,
-    rocketLaunchButton,
+    // rocketLaunchButton,
     road1,
     crator1,
     crater2,
