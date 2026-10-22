@@ -11,14 +11,14 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
     let carBody = null;
     let speed = 0;
     const direction = new THREE.Vector3(0, 0, 1);
-    const maxSpeed = 0.1;
-    const acceleration = 0.002;
+    const maxSpeed = 0.5;
+    const acceleration = 0.2;
     const turnSpeed = 0.03;
     let wallBody = null;
 
     const orbitController = new OrbitControls(
       cameraManager.getCamera(),
-      canvas
+      canvas,
     );
     orbitController.enabled = false;
 
@@ -63,7 +63,7 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
 
       carBody.quaternion.setFromAxisAngle(
         new CANNON.Vec3(0, 1, 0),
-        car.rotation.y
+        car.rotation.y,
       );
       car.position.copy(carBody.position);
       // car.quaternion.copy(carBody.quaternion);
@@ -102,7 +102,7 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
           const position = child.geometry.attributes.position.array;
           for (let i = 0; i < position.length; i += 3) {
             vertices.push(
-              new THREE.Vector3(position[i], position[i + 1], position[i + 2])
+              new THREE.Vector3(position[i], position[i + 1], position[i + 2]),
             );
           }
         }
@@ -125,7 +125,7 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
         position: new CANNON.Vec3(
           car.position.x,
           car.position.y,
-          car.position.z
+          car.position.z,
         ),
         material: new CANNON.Material("carMaterial"),
       });
@@ -164,7 +164,7 @@ export function createCar(scene, cameraManager, physicsWorld, gui, canvas) {
           resolve({ update, saveFinalPosition, carBody, car });
         },
         undefined,
-        (err) => reject(err)
+        (err) => reject(err),
       );
     }
 

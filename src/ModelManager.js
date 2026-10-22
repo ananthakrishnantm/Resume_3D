@@ -31,7 +31,7 @@ export const modelManager = (scene, physicsWorld) => {
 
   const loadmodelwithAnimationPhysics = (
     path,
-    materialName = "building1Material"
+    materialName = "building1Material",
   ) => {
     //loads model
     loader.load(path, (gltf) => {
@@ -70,7 +70,7 @@ export const modelManager = (scene, physicsWorld) => {
         position: new CANNON.Vec3(
           model.position.x,
           model.position.y,
-          model.position.z
+          model.position.z,
         ), // ✅ Use model.position instead of center
         material: new CANNON.Material(materialName),
       });
@@ -129,7 +129,7 @@ export const modelManager = (scene, physicsWorld) => {
   const loadmodelwithPhysicsAndText = (
     path,
     materialName = "building1Material",
-    onLoad
+    onLoad,
   ) => {
     loader.load(path, (gltf) => {
       const model = gltf.scene;
@@ -179,17 +179,17 @@ export const modelManager = (scene, physicsWorld) => {
   const loadbuilding1 = () =>
     loadmodelwithPhysics(
       "assets/scene/buildings/building1.glb",
-      "building1Material"
+      "building1Material",
     );
   const loadbuilding2 = () =>
     loadmodelwithPhysics(
       "assets/scene/buildings/building2.glb",
-      "building2Material"
+      "building2Material",
     );
   const loadbuilding3 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building3.glb",
-      "building3Material"
+      "building3Material",
     );
   };
 
@@ -197,95 +197,95 @@ export const modelManager = (scene, physicsWorld) => {
   const loadbuilding4 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building4.glb",
-      "building4Material"
+      "building4Material",
     );
   };
   const loadbuilding5 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building5.glb",
-      "building5Material"
+      "building5Material",
     );
   };
   const loadbuilding6 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building6.glb",
-      "building6Material"
+      "building6Material",
     );
   };
   const loadbuilding7 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building7.glb",
-      "building7Material"
+      "building7Material",
     );
   };
 
   const loadbuilding8 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building8.glb",
-      "building8Material"
+      "building8Material",
     );
   };
 
   const loadbuilding9 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building9.glb",
-      "building9Material"
+      "building9Material",
     );
   };
 
   const loadbuilding10 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building10.glb",
-      "building10Material"
+      "building10Material",
     );
   };
 
   const loadbuilding11 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/building11.glb",
-      "building11Material"
+      "building11Material",
     );
   };
 
   const hanger1 = () => {
     loadmodelwithPhysics(
       "assets/scene/hangers/hanger1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const Mountain = () => {
     loadmodelwithPhysics(
       "assets/scene/Mountains/Mountain.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const Mountain1 = () => {
     loadmodelwithPhysics(
       "assets/scene/Mountains/mountain1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const Mountain2 = () => {
     loadmodelwithPhysics(
       "assets/scene/Mountains/mountain2.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const Mountain3 = () => {
     loadmodelwithPhysics(
       "assets/scene/Mountains/mountain3.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const Mountain4 = () => {
     loadmodelwithPhysics(
       "assets/scene/Mountains/mountain4.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
@@ -300,40 +300,40 @@ export const modelManager = (scene, physicsWorld) => {
   const crater2 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/craterL.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const meteorFragment = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/meteorFragment.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const barrelSet1 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/barrelSet1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const barrel1 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/barrel1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const barrel2 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/barrel2.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const machineBarrel1 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/machineBarrel1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const bones1 = () => {
@@ -343,14 +343,14 @@ export const modelManager = (scene, physicsWorld) => {
   const teleporter1 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/transporter.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const satelite1 = () => {
     loadmodelwithPhysics(
       "assets/scene/assets/satelite1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
@@ -382,7 +382,7 @@ export const modelManager = (scene, physicsWorld) => {
   const linkdinModel = () => {
     loadmodelwithPhysics(
       "assets/scene/Socials/linkdin.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
@@ -390,14 +390,14 @@ export const modelManager = (scene, physicsWorld) => {
   const uniModel1 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/3duni.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const uniModel2 = () => {
     loadmodelwithPhysics(
       "assets/scene/buildings/aiUni.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
@@ -415,67 +415,67 @@ export const modelManager = (scene, physicsWorld) => {
   const train1 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail1.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const train2 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail2.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const train3 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail3.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const train4 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail4.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const train5 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail5.glb",
-      "building1Material"
+      "building1Material",
     );
   };
   const train6 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail6.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const train7 = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/trainAnim/monorail7.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const shipLanded = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/AnimatedAssets/spaceshipLanded.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const cookieModelAnim = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/AnimatedAssets/cookie.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 
   const rocket_launch = () => {
     loadmodelwithAnimationPhysics(
       "assets/scene/AnimatedAssets/rocket_launch.glb",
-      "building1Material"
+      "building1Material",
     );
   };
 

@@ -6,8 +6,11 @@ export function PhysicsWorld() {
   world.broadphase = new CANNON.NaiveBroadphase();
   world.solver.iterations = 10;
 
-  function update() {
-    world.step(1 / 60);
+  const fixedTimeStep = 1 / 60;
+  const maxSubSteps = 3;
+
+  function update(delta) {
+    world.step(fixedTimeStep, delta, maxSubSteps);
   }
 
   return { world, update };

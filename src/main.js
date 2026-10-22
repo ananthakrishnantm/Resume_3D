@@ -5,6 +5,7 @@ import { PhysicsWorld } from "./PhysicsWorld.js";
 import { createCar } from "./Car.js"; // Updated import for functional approach
 import { Controls } from "./Controls.js";
 import { makeGroundText } from "./GroundText.js";
+import { makeHologramWalls } from "./interactingObjects/HologramFrame.js";
 import {
   loadRocket,
   updateRocketAnimation,
@@ -25,7 +26,7 @@ const gui = new GUI();
 // Sample cube (possibly for debugging)
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(),
-  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+  new THREE.MeshBasicMaterial({ color: 0xff0000 }),
 );
 //scale factor function
 
@@ -64,25 +65,23 @@ startButton.addEventListener("click", () => {
 });
 
 // Initialize managers
-
 const physicsWorld = new PhysicsWorld();
 const controls = new Controls();
-
 const sceneManager = new SceneManager(physicsWorld);
+
 // scaleworld(2);
 sceneManager.cameraManager.setupGUI(gui);
 const { mixers, animatedPhysicsObjects } = sceneManager.models;
 const clock = new THREE.Clock();
 
 // Create car instance using the functional approach
-
 async function init() {
   const { carBody, update } = await createCar(
     sceneManager.scene,
     sceneManager.cameraManager,
     physicsWorld,
     gui,
-    sceneManager.renderer.domElement // canvas parameter
+    sceneManager.renderer.domElement, // canvas parameter
     // sceneManager.groundBody // pass groundBody for collision detection
   );
 
@@ -93,8 +92,8 @@ async function init() {
     "Kaunas Technological University \nMasters in\nArtificial Intelligence \nin Computer Science \n2024-2026",
     100,
     100,
-    { x: -74, y: 5, z: -10 }, //this is the location
-    { x: -90, y: 0, z: 90 } // flat + rotated around Y
+    { x: -92, y: 5, z: -15.5 }, //this is the location
+    { x: -90, y: 0, z: 180 }, // flat + rotated around Y
   );
   sceneManager.scene.add(School1Text);
 
@@ -103,17 +102,39 @@ async function init() {
     "Kerala Technological University \nBachelors in \nComputer Science \n2015-2019",
     100,
     100,
-    { x: -40, y: 5, z: -10 }, //Location
-    { x: -90, y: 0, z: 90 } // Rotation
+    { x: -40, y: 6, z: -14.5 }, //Location
+    { x: -90, y: 0, z: 180 }, // Rotation
   );
   sceneManager.scene.add(School2Text);
+
+  //for gui of text
+
+  const f = gui.addFolder("School2Text");
+  f.add(School2Text.rotation, "z", -Math.PI, Math.PI).name("rot z (rad)");
+  f.add(School2Text.position, "x", -150, 50);
+  f.add(School2Text.position, "z", -100, 100);
+
+  const g = gui.addFolder("School1Text");
+  g.add(School1Text.rotation, "z", -Math.PI, Math.PI).name("rot z (rad)");
+  g.add(School1Text.position, "x", -150, 50);
+  g.add(School1Text.position, "z", -100, 100);
+
+  //Adding Hologram for Text for schoolText11
+  const walls1 = makeHologramWalls(40, 16, 0.8);
+  walls1.position.set(0, -1, 0.1);
+  School1Text.add(walls1);
+
+  //Adding Hologram for Text for schoolText2
+  const walls2 = makeHologramWalls(42, 16, 0.8);
+  walls2.position.set(0, -1, 0.1);
+  School2Text.add(walls2);
 
   // Set how to get player position
   setPlayerPositionReference(() => {
     return new THREE.Vector3(
       carBody.position.x,
       carBody.position.y,
-      carBody.position.z
+      carBody.position.z,
     );
   });
 
@@ -141,9 +162,12 @@ async function init() {
     });
     updateRocketAnimation(delta);
 
-    physicsWorld.update();
+    physicsWorld.update(delta);
     update(controls.keys); // Call update from functional car instance
     sceneManager.render();
+
+    //Hologram animation
+    walls2.userData.uTime.value = clock.elapsedTime;
   }
 
   animate();

@@ -9,7 +9,7 @@ export function makeGroundText(
   width = 150,
   height = 150,
   position = { x: 0, y: 0.05, z: 0 },
-  rotation = { x: -90, y: 0, z: 0 }
+  rotation = { x: -90, y: 0, z: 0 },
 ) {
   const canvas = document.createElement("canvas");
   canvas.width = 2048;
@@ -23,7 +23,7 @@ export function makeGroundText(
   //draw text
   ctx.fillStyle = "white";
   ctx.font = "bold 40px Arial";
-  ctx.textAlign = "left";
+  ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
   //handle line breaks
@@ -53,7 +53,7 @@ export function makeGroundText(
   mesh.rotation.set(
     degToRad(rotation.x),
     degToRad(rotation.y),
-    degToRad(rotation.z)
+    degToRad(rotation.z),
   );
   //new THREE.Euler(rotation.x, rotation.y, rotation.z);
   mesh.position.set(position.x, position.y + 0.05, position.z);
